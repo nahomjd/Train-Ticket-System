@@ -1,0 +1,24 @@
+
+
+{% block content %}
+    <h1>Login</h1>
+    {% if msg %}
+        <div id="loginmsg">
+
+        {{msg }}<br>
+
+        </div>
+    {% endif %}
+        
+        <form action="/login" method="POST">
+      
+            <input type="text" name="email"/><br>
+            
+            Password:<br>
+            <input type="password" name="password" /><br><br>
+			
+			Submit:<br>
+            <input type="submit" value="Login" />
+
+    </table>
+{% endblock %}
