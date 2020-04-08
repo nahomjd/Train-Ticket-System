@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {{ msg }}
+	<form method="get" action="/login">
+		<button type="login">Login</button>
+	</form>
+	<form method="get" action="/createaccount">
+		<button type="createaccount">Create Account</button>
+	</form>
+{% endblock %}
+

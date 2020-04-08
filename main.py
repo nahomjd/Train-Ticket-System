@@ -5,13 +5,18 @@ from flask_session import Session
 import pymysql 
 import json
 import time
-from customer import customerList
+from Passenger import passengerList
    
 app = Flask(__name__,static_url_path='')
 SESSION_TYPE = 'filesystem'
 app.config.from_object(__name__)
 Session(app)
 
+'''
+=====================
+Main functions Start
+=====================
+'''
 
 @app.route('/set')
 def set():
@@ -24,22 +29,34 @@ def get():
     
 @app.route('/')
 def home():
-    return render_template('test.html', title='Test', msg='Welcome!')
-    
-@app.route('/login', methods = ['Post'])
+    return render_template('index.html', title='index', msg='Welcome Please Login or create a account!')
+
+'''
+=====================
+Main functions End
+=====================
+'''    
+
+'''
+===================================
+Passenger and Login Functions Start
+===================================
+'''
+
+@app.route('/login', methods = ['GET', 'POST'])
 def login():
-    if request.form.get('email') is not None and request.form.get('password') is not None:
-        c = customerList()
-        if c.tryLogin(request.form.get('email'), request.form.get('password')):
+    print('was called login')
+    if request.form.get('PEmail') is not None and request.form.get('Ppassword') is not None:
+        p = passengerList()
+        if p.tryLogin(request.form.get('PEmail'), request.form.get('Ppassword')):
             print('login ok')
-            session['user'] = c.data[0]
+            session['user'] = p.data[0]
             session['active'] = time.time()
             return redirect('main')
         else:
             print('login failed')
-            return render_template('login.html',title='login', msg ='Incorrect username or password.')
-            
-        return''
+            return render_template('Login.html',title='login', msg ='Incorrect email or password.')
+                    
     else:
         if 'msg' not in session.keys() or session['msg'] is None:
             m = 'Type your email and password to continue.'
@@ -65,7 +82,47 @@ def checkSession():
             return True
     else:
         return False
-    
+        
+@app.route('/main')
+def main():
+    if checkSession() == False: 
+        return redirect('login')
+    userinfo = 'Hello, ' + session['user']['PFirstName']
+    return render_template('main.html', title='Main menu',msg = userinfo)  
+
+@app.route('/createaccount',methods = ['GET', 'POST'])
+def createaccount():
+
+    if request.form.get('PFirstName') is None:
+        p = passengerList()
+        p.set('PFirstName','')
+        p.set('PLastName','')
+        p.set('PEmail','')
+        p.set('Ppassword','')
+        p.add()
+        return render_template('createaccount.html', title='New Account',  passenger=p.data[0]) 
+    else:
+        p = passengerList()
+        p.set('PFirstName',request.form.get('PFirstName'))
+        p.set('PLastName',request.form.get('PLastName'))
+        p.set('PEmail',request.form.get('PEmail'))
+        p.set('Ppassword',request.form.get('Ppassword'))
+        p.add()
+        if p.verifyNew():
+            p.insert()
+            #print(p.data)
+            return render_template('login.html', title='Account Saved Please Login Now',  passenger=p.data[0])
+        else:
+            return render_template('createaccount.html', title='Account Not Saved',  passenger=p.data[0],msg=p.errorList)
+
+
+
+'''
+===================================
+Passenger and Login Functions End
+===================================
+'''
+       
 if __name__ == '__main__':
    app.secret_key = '1234'
    app.run(host='127.0.0.1',debug=True)

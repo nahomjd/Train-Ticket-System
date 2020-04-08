@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>New customer</h1>
+	{% if msg %}
+      <div id="errormsg">
+	  {% for err in msg %}
+		{{ err }}<br>
+	  {% endfor %}
+	  </div>
+    {% endif %}
+		
+		<form action="/createaccount" method="POST">
+			First Name:<br>
+			<input type="text" name="PFirstName" /><br><br>
+			
+			Last Name:<br>
+			<input type="text" name="PLastName" /><br><br>
+			
+			Email:<br>
+			<input type="text" name="PEmail" /><br><br>
+			
+			Password:<br>
+			<input type="password" name="Ppassword" /><br><br>
+			
+			Retype Password:<br>
+			<input type="password" name="Ppassword2" /><br><br>
+			
+			<br>
+			
+			<input type="submit" value="Save account"/>
+			
+		</form>
+{% endblock %}

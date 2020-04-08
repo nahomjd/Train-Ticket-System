@@ -21,7 +21,7 @@ from baseObject import baseObject
 
 class passengerList(baseObject):
     def __init__(self):
-        self.setupObject('passenger')
+        self.setupObject('Passenger')
         '''
         self.data = []
         self.tempdata = {}
@@ -39,11 +39,9 @@ class passengerList(baseObject):
                 if len(self.data[n][item]) == 0:
                     st = str(item) + ' cannot be blank.'
                     self.errorList.append(st)    
-        if '@' not in self.data[n]['email'] or '.' not in self.data[n]['email']:
+        if '@' not in self.data[n]['PEmail'] or '.' not in self.data[n]['PEmail']:
             self.errorList.append("Email input not valid, missing an '@' or '.'.")
-        if self.data[n]['subscribed'] != 'True' and self.data[n]['subscribed'] != 'False':
-            self.errorList.append('Subscribed needs to be True or False.')
-        if len(self.data[n]['password']) <= 4:
+        if len(self.data[n]['Ppassword']) <= 4:
             self.errorList.append('Password is too short, needs to be greater than 4 characters.')
         #print(self.errorList)    
         if len(self.errorList) > 0:
@@ -52,14 +50,15 @@ class passengerList(baseObject):
             return True
     
     def tryLogin(self,email,pw):
-        sql = 'SELECT * FROM `' + self.tn + '` WHERE ` `email` = %s and `password` = %s;'
+        sql = 'SELECT * FROM `' + self.tn + '` WHERE  `PEmail` = %s and `Ppassword` = %s;'
         tolkens = (email,pw)
         self.connect()
-        #print(sql)
-        #print(tolkens)
+        print(sql)
+        print(tolkens)
         cur = self.conn.cursor(pymysql.cursors.DictCursor)
         cur.execute(sql,tolkens)
         self.data = []
+        n = 0
         for row in cur:
             self.data.append(row)
             n+=1
