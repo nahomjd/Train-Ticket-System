@@ -30,44 +30,9 @@ Trip: deals with creating outputs mostly for trips based on criteria. There is a
 
 Example of Two methods
 getTrips:
-def getTrips(self, Destination, Date, Origin):
-        select = '''tripID, delayedDepartDateTime, delayedArrivalDateTime, numOfGPassengers, numOfBPassengers, numOfFPassengers, departDateTime, arrivalDateTime, delayedStatus, Origin, Destination, trip.trainID, t.stationName\
-        , t.stationID, t.Municipality, t.zipCode, t.StateOrProvince, s.stationName as DstationName, s.stationID as DstationID, s.Municipality as DMunicipality, s.zipCode as DzipCode, s.StateOrProvince as DStateOrProvince\
-        ,tr.trainID, tr.numberOfFirstClassSeats, tr.numberOfBusinessClassSeats, tr.numberOfGeneralSeats, tr.trainType, tr.company'''
-        sql = 'SELECT ' + select + ' FROM `' + self.tn  + '` trip' + ',`TrainStations` t, `TrainStations` s, `Train` tr' +\
-        ' WHERE t.stationID = Origin AND s.stationID = Destination' +\
-        ' AND trip.trainID = tr.trainID'
-        #print(len(Origin))
-        tolkens = []
-        if len(Date) > 0:
-            sql += ' And DATE ( departDateTime ) = %s'
-            tolkens.append(Date)
-        '''
-        if len(Origin) > 0 and len(Destination) > 0:
-            sql += ' AND t.stationID = %s'
-            sql += ' AND s.stationID = %s'
-            tolkens = [Date, Origin, Destination]
-        '''
-        if len(Origin) > 0:
-            sql += ' AND t.stationID = %s'
-            tolkens.append(Origin)
-        if len(Destination) > 0:
-            sql += ' AND s.stationID = %s'
-            tolkens.append(Destination)
-        sql += ';'
+![image](https://user-images.githubusercontent.com/27834881/80923283-bb730980-8d50-11ea-9868-9dbdbe63b97e.png)
 
-        
-        self.connect()
-        print(sql)
-        print(tolkens)
-        cur = self.conn.cursor(pymysql.cursors.DictCursor)
-        cur.execute(sql, tolkens)
-        self.data = []
-        for row in cur:
-            #print(row)
-            self.data.append(row)
-
-This method merges 3 tables with an output dependent on date, destination, or/and origin. The method also works if all inputs are blank. The purpose of the method is to search all trips. This is for access to Trip Search in the Agent area. An agent can search trips based on any of the three inputs. For example, all trips where Grand Central is the Origin. They can also use all three inputs to get a more detailed/narrowed search.
+This method located in the Trips Object merges 3 tables with an output dependent on date, destination, or/and origin. The method also works if all inputs are blank. The purpose of the method is to search all trips. This is for access to Trip Search in the Agent area. An agent can search trips based on any of the three inputs. For example, all trips where Grand Central is the Origin. They can also use all three inputs to get a more detailed/narrowed search.
 
 checkNotUser:
 ![image](https://user-images.githubusercontent.com/27834881/80923240-6d5e0600-8d50-11ea-97f2-364348d73592.png)
