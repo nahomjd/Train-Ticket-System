@@ -1,7 +1,7 @@
 # Train-Ticket-System
 
 Relational Schema:
-![ticketsRS](https://user-images.githubusercontent.com/27834881/78067511-d8d54200-7364-11ea-916f-547d44d3d0cc.PNG)
+![image](https://user-images.githubusercontent.com/27834881/80921995-118f7f00-8d48-11ea-8443-f7b8dada1bbd.png)
 
 Login:
 
