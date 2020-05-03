@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>New Station</h1>
+	{% if msg %}
+      <div id="errormsg">
+	  {% for err in msg %}
+		{{ err }}<br>
+	  {% endfor %}
+	  </div>
+    {% endif %}
+		
+		<form action="/addstation" method="POST">
+			Station Name:<br>
+			<input type="text" name="stationName" /><br><br>
+			
+			Municipality:<br>
+			<input type="text" name="Municipality" /><br><br>
+			
+			Zip Code:<br>
+			<input type="text" name="zipCode" /><br><br>
+			
+			State/Province:<br>
+			<input type="text" name="StateOrProvince" /><br><br>
+			
+			<br>
+			
+			<input type="submit" value="Save account"/>
+			
+		</form>
+{% endblock %}

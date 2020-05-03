@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<h1>User ID {{userid}} Past Transactions</h1>
+	<style>
+		table, th, td {
+		border: 1px solid black;
+	}
+	</style>
+	<table style = "width:100%">
+		<tr>
+			<th>Origin</th>
+			<th>Destination</th>
+			<th>Departure Time</th>
+			<th>Arrival Time</th>
+			<th>Seat Type</th>
+			<th>Price of Ticket</th>
+		</tr>
+		{% for transaction in transactions %}
+			<tr>
+			<td>{{ transaction.stationName }}</a></td>
+			<td>{{ transaction.DstationName }}</a></td>
+			<td>{{ transaction.departDateTime }}</a></td>
+			<td>{{ transaction.arrivalDateTime }}</a></td>
+			<td>{{ transaction.seatType }}</a></td>
+			<td>${{ transaction.price }}</a></td>
+			</tr>
+			<br>
+		{%endfor%}
+	</table>
+
+
+
+
+{% endblock %}

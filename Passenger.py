@@ -34,7 +34,7 @@ class passengerList(baseObject):
     def verifyNew(self, n=0):
         self.errorList = []
         for item in self.data[n]:
-            print(item)
+            #print(item)
             if item != self.pk:
                 if len(self.data[n][item]) == 0:
                     st = str(item) + ' cannot be blank.'
@@ -53,8 +53,8 @@ class passengerList(baseObject):
         sql = 'SELECT * FROM `' + self.tn + '` WHERE  `PEmail` = %s and `Ppassword` = %s;'
         tolkens = (email,pw)
         self.connect()
-        print(sql)
-        print(tolkens)
+        #print(sql)
+        #print(tolkens)
         cur = self.conn.cursor(pymysql.cursors.DictCursor)
         cur.execute(sql,tolkens)
         self.data = []
@@ -66,3 +66,59 @@ class passengerList(baseObject):
             return True
         else:
             return False
+            
+    def checkUser(self,userType,email):
+        sql = 'SELECT * FROM `' + self.tn + '` WHERE  `userType` = %s and `PEmail` = %s;'
+        tolkens = (userType,email)
+        self.connect()
+        #print(sql)
+        #print(tolkens)
+        cur = self.conn.cursor(pymysql.cursors.DictCursor)
+        cur.execute(sql,tolkens)
+        self.data = []
+        n = 0
+        for row in cur:
+            self.data.append(row)
+            n+=1
+        if n > 0:
+            return True
+        else:
+            return False
+            
+    def checkNotUser(self,userType,email):
+        sql = 'SELECT * FROM `' + self.tn + '` WHERE  `userType` <> %s and `PEmail` = %s;'
+        tolkens = (userType,email)
+        self.connect()
+        #print(sql)
+        #print(tolkens)
+        cur = self.conn.cursor(pymysql.cursors.DictCursor)
+        cur.execute(sql,tolkens)
+        self.data = []
+        n = 0
+        for row in cur:
+            self.data.append(row)
+            n+=1
+        if n > 0:
+            return True
+        else:
+            return False
+    
+    def checkExist(self, userID):
+        self.errorList = []
+        sql = 'select * from `'+ self.tn + '` where PID = %s;'
+        self.connect()
+        tolken = userID
+        cur = self.conn.cursor(pymysql.cursors.DictCursor)
+        cur.execute(sql, tolken)
+        passenger = []
+        for row in cur:
+            passenger.append(row)
+        if len(passenger) > 0:
+            test = 1
+            #print('pass')
+            return False
+            #do nothing
+        else:
+            self.errorList.append('User does not exist.')
+            return True
+    

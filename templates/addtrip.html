@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>New Trip</h1>
+	{% if msg %}
+      <div id="errormsg">
+	  {% for err in msg %}
+		{{ err }}<br>
+	  {% endfor %}
+	  </div>
+    {% endif %}
+		 
+		<form action="/addtrip" method="POST">
+			<label for="Origin">Origin:</label>
+			<select id="Origin" name="Origin">
+			{% for station in stations %}
+				<option value="{{ station.stationID }}">{{ station.stationName }}</option>
+			{% endfor %}
+			
+			</select>
+			<br><br>
+			<label for="Destination">Destination:</label>
+			<select id="Destination" name="Destination">
+			{% for station in stations %}
+				<option value="{{ station.stationID }}">{{ station.stationName }}</option>
+			{% endfor %}
+			</select>
+			<br><br>		
+			
+			<label for="departTime">Departure Time:</label>
+			<input type="time" id="departTime" name="departTime">
+			
+			<label for="arrivalTime">Arrival Time:</label>
+			<input type="time" id="arrivalTime" name="arrivalTime"><br><br>
+			
+			<label for="departDate">Departure date:</label>
+			<input type="date" id="departDate" name="departDate">
+			
+			<label for="arrivalDate">Arrival date:</label>
+			<input type="date" id="arrivalDate" name="arrivalDate"><br><br>
+			
+			Train ID:<br>
+			<input type="number" name="trainID" min=1/><br><br>
+			
+			<br>
+			
+			<input type="submit" value="Save trip"/>
+			
+		</form>
+{% endblock %}

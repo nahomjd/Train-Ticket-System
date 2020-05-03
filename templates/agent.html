@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {{ msg }}
+	<form method="get" action="/purchaseticketForUser">
+		<button type="purchaseticketForUser">Purchase Ticket</button>
+	</form>
+	<form method="get" action="/seetripboard ">
+		<button type="seetripboard">Today's Trips</button>
+	</form>
+	<form method="get" action="/userinfo">
+		<button type="userinfo">Search Users</button>
+	</form>
+	<form method="get" action="/tripinfo">
+		<button type="searchtrips">Search Trips</button>
+	</form>
+	<form method="get" action="/logout">
+		<button type="Logout">Logout</button>
+	</form>
+{% endblock %}

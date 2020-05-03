@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Today's Trips</h1>
+<tr>
+	<style>
+		table, th, td {
+		border: 1px solid black;
+	}
+	</style>
+	<td>Purchase for userid {{ user }}:</td>
+	<br>
+	<table style = "width:100%">
+		<tr>
+			<th>Select</th>
+			<th>Origin</th>
+			<th>Destination</th>
+			<th>Seat Type</th>
+			<th>Departure Time</th>
+			<th>Arrival Time</th>
+			<th>Status</th>
+			<th>Price of Ticket</th>
+		</tr>
+		<form action="/searchU" method="POST">	
+		{% for trip in trips %}
+			{% if "{{ trip.numberOfGeneralSeats }}" > "{{ trip.numberOfGPassengers }}" %}
+				<tr>
+				<td><input type="radio" id="radio1" name="tripInfo" value={{ trip.tripID }},GeneralTicket,15,{{ user }}></td>
+				<td>General Ticket </td>
+				<td>{{ trip.departDateTime }}</a></td>
+				<td>{{ trip.arrivalDateTime }}</td>
+				<td>{{ trip.delayedStatus }}</td>
+				<td>{{ trip.stationName }}</td>
+				<td>{{ trip.DstationName }}</td>
+				<td>$15</td>
+				</tr>
+				<br>
+			{% endif %}
+			{% if "{{ trip.numberOfBusinessSeats }}" > "{{ trip.numberOfBPassengers }}" %}
+				<tr>
+				<td><input type="radio" id="radio2" name="tripInfo" value={{ trip.tripID }},BusinessTicket,32,{{ user }}></td>
+				<td>Business Ticket </td>
+				<td>{{ trip.departDateTime }}</a></td>
+				<td>{{ trip.arrivalDateTime }}</td>
+				<td>{{ trip.delayedStatus }}</td>
+				<td>{{ trip.stationName }}</td>
+				<td>{{ trip.DstationName }}</td>
+				<td>$32</td>
+				</tr>
+				<br>
+			{% endif %}
+			{% if "{{ trip.numberOfFirstSeats }}" > "{{ trip.numberOfFPassengers }}" %}
+				<tr>
+				<td><input type="radio" id="radio3" name="tripInfo" value={{ trip.tripID }},FirstClassTicket,55,{{ user }}></td>
+				<td>First Class Ticket </td>	
+				<td>{{ trip.departDateTime }}</a></td>
+				<td>{{ trip.arrivalDateTime }}</td>
+				<td>{{ trip.delayedStatus }}</td>
+				<td>{{ trip.stationName }}</td>
+				<td>{{ trip.DstationName }}</td>
+				<td>$55</td>
+				</tr>
+				<br>
+			{% endif %}
+		{% endfor %}
+	</table>
+	<br>
+	<input type="submit" value="Purchase Ticket"/>
+	
+	</form>
+	<a href="main">
+	<input type="button" value="Cancel" />
+</a>
+	
+</tr>
+
+{% endblock %}

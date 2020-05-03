@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<style>
+		table, th, td {
+		border: 1px solid black;
+	}
+	</style>
+	<h1>Today's Trips</h1>
+	<table style = "width:100%">
+		<tr>
+			<th>Origin</th>
+			<th>Destination</th>
+			<th>Departure Time</th>
+			<th>Arrival Time</th>
+			<th>Status</th>
+		</tr>
+		{% for trip in trips %}
+			<tr>
+			<td>{{ trip.stationName }}</td>
+			<td>{{ trip.DstationName }}</td>
+			<td>{{ trip.departDateTime }}</a></td>
+			<td>{{ trip.arrivalDateTime }}</td>
+			<td>{{ trip.delayedStatus }}</td>
+			<br>
+			</tr>
+		{% endfor %}
+		
+	</table>
+	
+{% endblock %}

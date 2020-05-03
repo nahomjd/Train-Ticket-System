@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Update Trip</h1>
+	{% if msg %}
+      <div id="errormsg">
+	  {% for err in msg %}
+		{{ err }}<br>
+	  {% endfor %}
+	  </div>
+    {% endif %}
+		
+		<form action="/updatetrip" method="POST">
+			Trip ID:<br>
+			<input type="number" name="tripID" min=1 /><br><br>
+			
+			Status Update:<br>
+			<input type="text" name="delayedStatus" /><br><br>
+			
+			<label for="departTime">New Departure Time If One:</label>
+			<input type="time" id="departTime" name="departTime">
+			
+			<label for="arrivalTime">New Arrival Time If One:</label>
+			<input type="time" id="arrivalTime" name="arrivalTime"><br><br>
+			
+			<label for="departDate">New Departure Date If One:</label>
+			<input type="date" id="departDate" name="departDate">
+			
+			<label for="arrivalDate">New Arrival Date If One:</label>
+			<input type="date" id="arrivalDate" name="arrivalDate"><br><br>
+			
+			New train ID:<br>
+			<input type="number" name="trainID" min=1/><br><br>
+			
+			<br>
+			
+			<input type="submit" value="Save trip"/>
+			
+		</form>
+{% endblock %}

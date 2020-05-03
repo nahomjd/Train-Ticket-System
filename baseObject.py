@@ -64,6 +64,27 @@ class baseObject:
         #print(tolkens)
         cur.execute(sql,tolkens)
         self.data[n][self.pk] = cur.lastrowid
+        
+    def updateSQL(self,n=0):
+        tokens = []
+        setstring = ''
+        for fieldname in self.data[n].keys():
+            print(fieldname)
+            if fieldname != self.pk:
+                setstring += ' `'+fieldname+'` = %s,'
+                tokens.append(self.data[n][fieldname])
+            
+        setstring = setstring[:-1]
+        sql = 'UPDATE `' + self.tn + '` SET ' + setstring + ' WHERE `' + self.pk + '` = %s' 
+        tokens.append(self.data[n][self.pk])
+        
+        self.connect()
+        cur = self.conn.cursor(pymysql.cursors.DictCursor)
+        #print(sql)
+        #print(tokens)
+        #self.log(sql,tokens)
+        #cur.execute(sql,tokens)
+    
     
     def delete(self, n=0):
         item = self.data.pop(n)
@@ -123,3 +144,4 @@ class baseObject:
         self.data = []
         for row in cur:
             self.data.append(row)
+            

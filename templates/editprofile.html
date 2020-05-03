@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Edit Profile</h1>
+	{% if msg %}
+      <div id="errormsg">
+	  {% for err in msg %}
+		{{ err }}<br>
+	  {% endfor %}
+	  </div>
+    {% endif %} 
+	
+	<form action="/editprofile" method="POST">
+		<input type="hidden" id="edit2" name="edit2" value="test" checked>
+		
+		<input type="radio" id = "edit" name="edit" value="False">
+		<label for="edit">Edit Profie</label><br><br>
+		
+		<td>Current first name: {{ session.PFirstName }}</a></td><br>
+		<td>Change First Name:</a></td>
+		<br>
+		
+		<input type="text" name="firstname" /><br><br>
+		<td>Current last name: {{ session.PLastName }}</td><br>
+		<td>Change Last Name:</a></td>
+		<br>
+		
+		<input type="text" name="lastname" /><br><br>
+		<td>Current email name: {{ session.PEmail }}</td><br>
+		<td>Change Email:</a></td>
+		<br>
+		
+		<input type="text" name="email" /><br><br>
+		<td>Current password: {{ session.Ppassword }}</td><br>
+		<td>Change Password:</a></td>
+		<br>
+		
+		<input type="text" name="password" /><br><br>
+		<td>User Type:</a></td>
+		<br>
+		
+		<td>{{ session.userType }}</td>
+		<br><br>
+		<input type="submit" value="Edit account"/>
+	</form>
+	<a href="editprofile">
+	<input type="button" value="Clear" />
+{% endblock %}

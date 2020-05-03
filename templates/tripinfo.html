@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<th>Enter Trip info, any field can be blank</th><br>
+	<th>If all fields are blank all trips will be seached</th>
+	<form action="/tripinfo" method="POST">
+		<label for="Origin">Origin:</label>
+		<select id="Origin" name="Origin">
+		<option value= "">No station selected</option>
+		{% for station in stations %}
+			<option value="{{ station.stationID }}">{{ station.stationName }}</option>
+		{% endfor %}
+		</select>
+		<br><br>
+				
+		<label for="Destination">Destination:</label>
+		<select id="Destination" name="Destination">
+		<option value= "">No station selected</option>
+		{% for station in stations %}
+			<option value="{{ station.stationID }}">{{ station.stationName }}</option>
+		{% endfor %}
+		</select>
+	
+		<br><br>		
+			
+		<label for="departDate">Date:</label>
+		<input type="date" id="departDate" name="departDate">
+		
+		<br><br>
+		<input type="submit" value="Search"/>
+	</form>	
+	<a href="tripinfo">
+	<input type="button" value="Clear" />
+	
+{% endblock %}

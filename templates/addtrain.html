@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>New Train</h1>
+	{% if msg %}
+      <div id="errormsg">
+	  {% for err in msg %}
+		{{ err }}<br>
+	  {% endfor %}
+	  </div>
+    {% endif %}
+		
+		<form action="/addtrain" method="POST">
+			Company Name:<br>
+			<input type="text" name="company" /><br><br>
+			
+			Train Type:<br>
+			<input type="text" name="trainType" /><br><br>
+			
+			Number of General Seats:<br>
+			<input type="number" name="numberOfGeneralSeats" min=0/><br><br>
+			
+			Number of Business Seats:<br>
+			<input type="number" name="numberOfBusinessClassSeats" min=0/><br><br>
+			
+			Number of First Class Seats:<br>
+			<input type="number" name="numberOfFirstClassSeats" min=0/><br><br>
+			
+			<br>
+			
+			<input type="submit" value="Save account"/>
+			
+		</form>
+{% endblock %}

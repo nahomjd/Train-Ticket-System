@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {{ msg }}
+	<form method="get" action="/addstation">
+		<button type="addstation">Add Station</button>
+	</form>
+	<form method="get" action="/addtrain">
+		<button type="addtrain">Add Train</button>
+	</form>
+	<form method="get" action="/addtrip">
+		<button type="addtrip">Add Trip</button>
+	</form>
+	<form method="get" action="/updatetrip">
+		<button type="updatetrip">Update Trip</button>
+	</form>
+	<form method="get" action="/adduser">
+		<button type="adduser">Add User</button>
+	</form>
+	<form method="get" action="/seetripboard ">
+		<button type="seetripboard">Today's Trips</button>
+	</form>
+	<form method="get" action="/logout">
+		<button type="Logout">Logout</button>
+	</form>
+{% endblock %}
