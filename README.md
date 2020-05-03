@@ -19,7 +19,16 @@ Narrative:
   
   For the most part, this flask application came together with the majority of the functionality working correctly. However, there are a few shortfalls I will highlight in advance. Update and deleting trips, trains, and Train stations for the administrator did not come to fruition. Update trip does have a page however it does not update the database correctly, though the error checking on it works correctly. So update trip does have partial functionality. Another shortfall is that when purchasing a ticket and purchase a ticket is submitted without selecting a ticket the page is reloaded. However, once reloaded tickets won’t appear due to not being able to access the original searched information. The final shortfall is if no information is found in a search a blank table is made. With more time I would implement a “Nothing found” message. 
 
+Libraries used: Flask, Flask_sessions, pymsql, datetime, and time
+
 Six Objects: Base, Passenger, Ticket, Train, TrainStations, and Trip
+Passenger: deals with methods that are related to how a customer and user interacts with the application.
+Ticket: Contains methods that generate a ticket as well as error check the inputs for the ticket information.
+Train: Only has a verfyNew to check if inputs are blank.
+TrainStations: has a VerfyNew that checks for blankl input and that zip code is the correct length
+Trip: deals with creating outputs mostly for trips based on criteria. There is also error checking methods for the inputs that create the trip outputs.
+
+Example of Two methods
 
 CRUD Table:
 
