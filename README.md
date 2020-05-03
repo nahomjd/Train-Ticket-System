@@ -29,6 +29,67 @@ TrainStations: has a VerfyNew that checks for blankl input and that zip code is 
 Trip: deals with creating outputs mostly for trips based on criteria. There is also error checking methods for the inputs that create the trip outputs.
 
 Example of Two methods
+getTrips:
+def getTrips(self, Destination, Date, Origin):
+        select = '''tripID, delayedDepartDateTime, delayedArrivalDateTime, numOfGPassengers, numOfBPassengers, numOfFPassengers, departDateTime, arrivalDateTime, delayedStatus, Origin, Destination, trip.trainID, t.stationName\
+        , t.stationID, t.Municipality, t.zipCode, t.StateOrProvince, s.stationName as DstationName, s.stationID as DstationID, s.Municipality as DMunicipality, s.zipCode as DzipCode, s.StateOrProvince as DStateOrProvince\
+        ,tr.trainID, tr.numberOfFirstClassSeats, tr.numberOfBusinessClassSeats, tr.numberOfGeneralSeats, tr.trainType, tr.company'''
+        sql = 'SELECT ' + select + ' FROM `' + self.tn  + '` trip' + ',`TrainStations` t, `TrainStations` s, `Train` tr' +\
+        ' WHERE t.stationID = Origin AND s.stationID = Destination' +\
+        ' AND trip.trainID = tr.trainID'
+        #print(len(Origin))
+        tolkens = []
+        if len(Date) > 0:
+            sql += ' And DATE ( departDateTime ) = %s'
+            tolkens.append(Date)
+        '''
+        if len(Origin) > 0 and len(Destination) > 0:
+            sql += ' AND t.stationID = %s'
+            sql += ' AND s.stationID = %s'
+            tolkens = [Date, Origin, Destination]
+        '''
+        if len(Origin) > 0:
+            sql += ' AND t.stationID = %s'
+            tolkens.append(Origin)
+        if len(Destination) > 0:
+            sql += ' AND s.stationID = %s'
+            tolkens.append(Destination)
+        sql += ';'
+
+        
+        self.connect()
+        print(sql)
+        print(tolkens)
+        cur = self.conn.cursor(pymysql.cursors.DictCursor)
+        cur.execute(sql, tolkens)
+        self.data = []
+        for row in cur:
+            #print(row)
+            self.data.append(row)
+
+This method merges 3 tables with an output dependent on date, destination, or/and origin. The method also works if all inputs are blank. The purpose of the method is to search all trips. This is for access to Trip Search in the Agent area. An agent can search trips based on any of the three inputs. For example, all trips where Grand Central is the Origin. They can also use all three inputs to get a more detailed/narrowed search.
+
+checkNotUser:
+def checkNotUser(self,userType,email):
+        sql = 'SELECT * FROM `' + self.tn + '` WHERE  `userType` <> %s and `PEmail` = %s;'
+        tolkens = (userType,email)
+        self.connect()
+        #print(sql)
+        #print(tolkens)
+        cur = self.conn.cursor(pymysql.cursors.DictCursor)
+        cur.execute(sql,tolkens)
+        self.data = []
+        n = 0
+        for row in cur:
+            self.data.append(row)
+            n+=1
+        if n > 0:
+            return True
+        else:
+            return False
+
+This method is for keeping a specific type of user of pages. Its use case is for keeping Passenger users off the Agent's pages. This is because there was no reason to restrict an Admin from accessing the pages so instead we just check that they are not a Passenger because there are only three types of user and no way of making a new type without some kind of SQL injection attack.
+
 
 CRUD Table:
 
