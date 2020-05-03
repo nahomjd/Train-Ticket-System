@@ -19,4 +19,6 @@ Narrative:
   
   For the most part, this flask application came together with the majority of the functionality working correctly. However, there are a few shortfalls I will highlight in advance. Update and deleting trips, trains, and Train stations for the administrator did not come to fruition. Update trip does have a page however it does not update the database correctly, though the error checking on it works correctly. So update trip does have partial functionality. Another shortfall is that when purchasing a ticket and purchase a ticket is submitted without selecting a ticket the page is reloaded. However, once reloaded tickets won’t appear due to not being able to access the original searched information. The final shortfall is if no information is found in a search a blank table is made. With more time I would implement a “Nothing found” message. 
 
+CRUD Table:
 
+![image](https://user-images.githubusercontent.com/27834881/80921812-a4c7b500-8d46-11ea-9613-e697659374da.png)
