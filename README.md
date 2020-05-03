@@ -29,6 +29,7 @@ TrainStations: has a VerfyNew that checks for blankl input and that zip code is 
 Trip: deals with creating outputs mostly for trips based on criteria. There is also error checking methods for the inputs that create the trip outputs.
 
 Example of Two methods
+
 getTrips:
 ![image](https://user-images.githubusercontent.com/27834881/80923283-bb730980-8d50-11ea-9868-9dbdbe63b97e.png)
 
